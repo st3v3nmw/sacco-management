@@ -1,7 +1,7 @@
-# sacco-management
+## SACCO MANAGEMENT
 This project is about a data management system for a medium sized transport SACCO.
 
-# Project Requirements
+### Project Requirements
  * Adding mebers to the SACCO
  * Removing a member from the SACCO
  * Showing the details of a given member
