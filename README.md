@@ -11,8 +11,6 @@ This project is about a data management system for a medium sized transport SACC
     * Vehicle Driver
     * Shares
     * Credit Status
- * List of members with loans
  * Statistics
     * Total Shares
     * Money lent out
-    
