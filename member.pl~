@@ -1,3 +1,0 @@
-reading :-
-    csv_read_file('members.csv', Rows, [functor(member), arity(5)]),
-    maplist(assert, Rows).
