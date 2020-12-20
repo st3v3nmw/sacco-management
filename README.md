@@ -15,4 +15,8 @@ This project is about a data management system for a medium sized transport SACC
  * Statistics
     * Total Shares
     * Money lent out
-    
+
+## TODO
+
+- [ ] Merge all modules into one file.
+- [ ] Handle crashes when CSV files are empty.
