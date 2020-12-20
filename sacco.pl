@@ -38,10 +38,6 @@ get_vehicle_submenu_action(Action) :-
          search_vehicle_opt     : 'Search Vehicle',
          list_vehicles_opt      : 'List Vehicles',
          delete_vehicle_opt     : 'Delete Vehicle',
-         register_driver_opt    : 'Register Driver',
-         search_driver_opt      : 'Search Driver',
-         list_drivers_opt       : 'List Drivers',
-         delete_driver_opt      : 'Delete Driver',
          back_v                 : 'Go back to main menu'], Action).
 
 vehicle_submenu_action(register_vehicle_opt) :-
@@ -55,18 +51,6 @@ vehicle_submenu_action(list_vehicles_opt) :-
 
 vehicle_submenu_action(delete_vehicle_opt) :-
     delete_vehicle.
-
-vehicle_submenu_action(register_driver_opt) :-
-    register_driver.
-
-vehicle_submenu_action(search_driver_opt) :-
-    search_driver.
-
-vehicle_submenu_action(list_drivers_opt) :-
-    list_drivers.
-
-vehicle_submenu_action(delete_driver_opt) :-
-    delete_driver.
 
 vehicle_submenu_action(back_v) :-
     main_menu_loop.
