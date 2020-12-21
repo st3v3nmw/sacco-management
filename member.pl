@@ -1,41 +1,45 @@
-read_members :-
-    csv_read_file('members.csv', Rows, [functor(vehicle), arity(5)]),
-    maplist(assert, Rows).
+:- module(member, [register_member/0,show_members/0,search_member/0,members_with_loans/0,initialize_member_module/0]).
 
-add_member:-
-    findall(row(ID, FNAME, LNAME,SHARES,LOAN_STATUS),    member(ID, FNAME, LNAME, SHARES, LOAN_STATUS), Rows),
-    csv_write_file('members.csv', Rows).
+:- use_module(utils).
 
-register_member:-
+register_member :-
     format("\nEnter member ID Number:\n"),
     read(ID),
-    format("Enter Member's Fisrt Name:\n"),
+    format("Enter Member's First Name:\n"),
     read(FNAME),
     format("Enter Member's  Last Name:\n"),
     read(LNAME),
     format("Enter Member's shares count:\n"),
     read(SHARES),
     LOAN_STATUS is 400,
-    assertz(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS)),
+    get_time_str(REG_TIMESTAMP),
+    assertz(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP)),
     add_member.
 
-show_members:-
-    format("\n\nID_NUMBER\tFIRST_NAME.\tLAST_NAME\tSHARES\tLOAN_STATUS\n"),
-    forall(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS),
-    format("~w\t\t~w\t\t~w\t\t~w\t~w~n", [ID, FNAME, LNAME,SHARES, LOAN_STATUS])).
+show_members :-
+    forall(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP),
+    format("\nMember ID: ~w\nName: ~w ~w\nNumber of Shares: ~w\nLoan Status: ~w\nRegistration Timestamp: ~w\n", [ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP])).
 
-
-search_member:-
+search_member :-
     format("\nEnter member's ID Number:\n"),
-    read(X),
-    format("\n\nID_NUMBER\tFIRST_NAME.\tLAST_NAME\tSHARES\tLOAN_STATUS\n"),
-    forall(member(X, FNAME, LNAME,SHARES, LOAN_STATUS),
-    format("~w\t\t~w\t\t~w\t\t~w\t~w~n", [X, FNAME, LNAME,SHARES, LOAN_STATUS])).
+    read(ID),
+    forall(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP),
+    format("\nMember ID: ~w\nName: ~w ~w\nNumber of Shares: ~w\nLoan Status: ~w\nRegistration Timestamp: ~w\n", [ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP])).
 
-members_with_loans:-
-    format("\n\nID_NUMBER\tFIRST_NAME.\tLAST_NAME\tSHARES\tLOAN_STATUS\n"),
-    forall(member(ID, FNAME, LNAME,SHARES, X) X is > 1,
-    format("~w\t\t~w\t\t~w\t\t~w\t~w~n", [ID, FNAME, LNAME,SHARES, LOAN_STATUS])).
+members_with_loans :-
+    forall(member(ID, FNAME, LNAME,SHARES, LOAN_STATUS,REG_TIMESTAMP), LOAN_STATUS > 1,
+    format("\nMember ID: ~w\nName: ~w ~w\nNumber of Shares: ~w\nLoan Status: ~w\nRegistration Timestamp: ~w\n", [ID, FNAME, LNAME,SHARES, LOAN_STATUS, REG_TIMESTAMP])).
+
+initialize_member_module :-
+    read_members.
 
 
+% CSV FILES MANAGEMENT
 
+read_members :-
+    csv_read_file('data/members.csv', Rows, [functor(member), arity(6)]),
+    maplist(assert, Rows).
+
+add_member:-
+    findall(row(ID, FNAME, LNAME, SHARES, LOAN_STATUS, REG_TIMESTAMP), member(ID, FNAME, LNAME, SHARES, LOAN_STATUS, REG_TIMESTAMP), Rows),
+    csv_write_file('data/members.csv', Rows).
