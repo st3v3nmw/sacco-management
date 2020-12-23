@@ -1,6 +1,8 @@
 :- use_module(member).
 :- use_module(vehicle).
 
+:- initialization(main_menu_loop).
+
 % Main Menu
 
 get_action_main_menu(Action) :-
@@ -47,7 +49,7 @@ member_submenu_action(search_member_opt) :-
     search_member.
 
 member_submenu_action(list_members_opt) :-
-    show_members.
+    list_members.
 
 member_submenu_action(delete_member_opt) :-
     delete_member.
@@ -94,10 +96,3 @@ vehicle_submenu_loop :-
     format("\nEnter c. to continue:\n"),
     read(_),
     vehicle_submenu_loop.
-
-
-% entry point
-
-:-  initialize_member_module,
-    initialize_vehicle_module,
-    main_menu_loop.
