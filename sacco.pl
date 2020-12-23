@@ -1,7 +1,10 @@
+% SWI-Prolog implementation
+
 :- use_module(member).
 :- use_module(vehicle).
 
 :- initialization(main_menu_loop).
+
 
 % Main Menu
 
@@ -31,6 +34,7 @@ main_menu_loop :-
     format("\nEnter c. to continue:\n"),
     read(_),
     main_menu_loop.
+
 
 % Members Submenu
 
